@@ -1,6 +1,10 @@
 export default function Messages(){
     const {messages} = this.prop;
+
+
+
     const renderMessage= (message)=>{
+
         const {member, text} = message;
         const {currentMember}=  this.props;
         const messageFromMe = member.id === currentMember.id;
@@ -8,7 +12,13 @@ export default function Messages(){
 
         return(
             <li className={className}>
-
+                <span className="avatar" stype={{backgroundColor: member.clientData.color}}/>
+                <div className="Message-content">
+                    <div className="username">
+                        {member.clientData.username}
+                    </div>
+                    <div className="text">{text}</div>
+                </div>
             </li>
         )
 
