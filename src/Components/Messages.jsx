@@ -1,21 +1,33 @@
-function Messages({ message, currentMember }) {
-  function renderMessage(message) {
-    const { text } = message;
-    const { color, username } = currentMember;
-
+import { nanoid } from "nanoid";
+function Messages({ messages, currentMember }) {
+  const renderMessage = (message) => {
+    const { member, text } = message;
+    console.log("message:", message);
+    console.log("member:", member);
+    const localUserMessage = member && member.id === currentMember.id;
+    const className = localUserMessage
+      ? "Messages-message currentMember"
+      : "messages-message";
     return (
-      <li key={Math.random()}>
-        <span className="avatar" style={{ backgroundColor: color }} />
-        <div className="Message-content">
-          <div className="username">{username}</div>
-          <div className="text">{text}</div>
+      <li key={nanoid()} className={className}>
+        <span
+          className="avatar"
+          style={{ backgroundColor: member.clientData.color }}
+        />
+        <div className="MessageContent">
+          <div className="username">{member.clientData.username}</div>
+          <div
+            className="text"
+            style={{ backgroundColor: member.clientData.color }}
+          >
+            {text}
+          </div>
         </div>
       </li>
     );
-  }
-
+  };
   return (
-    <ul className="Messages-list">{message.map((m) => renderMessage(m))}</ul>
+    <ul className="Messages-list">{messages.map((m) => renderMessage(m))}</ul>
   );
 }
 

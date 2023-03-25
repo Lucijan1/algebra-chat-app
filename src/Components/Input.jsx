@@ -1,26 +1,31 @@
 import { useState } from "react";
 
-export default function Input(prop) {
-  const [messageText, setMessageText] = useState("");
+function Input({ onSendMessage }) {
+  const [inputText, setInputText] = useState("");
 
-  const handleInput = (e) => setMessageText(e.target.value);
-
-  const handleForm = (e) => {
-    e.preventDefault();
-    setMessageText("");
-    prop.handleSendMessage(messageText);
+  const handleChange = (e) => {
+    setInputText({
+      text: e.target.value,
+    });
   };
-
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setInputText({ text: "" });
+    onSendMessage(inputText);
+  };
   return (
-    <form onSubmit={handleForm}>
-      <input
-        onChange={handleInput}
-        value={messageText}
-        placeholder="Send a message"
-        autoFocus={true}
-        type="text"
-      />
-      <button>&#9166;</button>
-    </form>
+    <div className="Input">
+      <form onSubmit={handleSubmit}>
+        <input
+          onChange={handleChange}
+          type="text"
+          placeholder="Enter your message"
+          autoFocus={true}
+        />
+        <button>&#9166;</button>
+      </form>
+    </div>
   );
 }
+
+export default Input;
