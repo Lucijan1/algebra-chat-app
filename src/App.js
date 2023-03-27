@@ -155,7 +155,7 @@ function App() {
   const [room, setRoom] = useState(null);
 
   useEffect(() => {
-    const newDrone = new window.Scaledrone("zcEs1VEhyhQWLxhJ", {
+    const newDrone = new window.Scaledrone("x4HWGT5WcslMpLUg", {
       data: member,
     });
     setDrone(newDrone);
@@ -169,7 +169,7 @@ function App() {
         } else {
           member.id = drone.clientId;
           setMember(member);
-          const newRoom = drone.subscribe("learning");
+          const newRoom = drone.subscribe("observable-room");
           setRoom(newRoom);
 
           newRoom.on("data", (data, member) => {
@@ -183,7 +183,7 @@ function App() {
 
   const onSendMessage = (message) => {
     drone.publish({
-      room: "learning",
+      room: "observable-room",
       message,
     });
   };
