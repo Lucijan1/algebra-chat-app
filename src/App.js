@@ -154,32 +154,49 @@ function App() {
   const [drone, setDrone] = useState(null);
   const [room, setRoom] = useState(null);
 
+  // useEffect(() => {
+  //   const newDrone = new window.Scaledrone("x4HWGT5WcslMpLUg", {
+  //     data: member,
+  //   });
+  //   setDrone(newDrone);
+  // }, [member]);
+
+  // useEffect(() => {
+  //   if (drone) {
+  //     drone.on("open", (e) => {
+  //       if (e) {
+  //         console.error(e);
+  //       } else {
+  //         member.id = drone.clientId;
+  //         setMember(member);
+  //         const newRoom = drone.subscribe("observable-room");
+  //         setRoom(newRoom);
+
+  //         newRoom.on("data", (data, member) => {
+  //           const newMessage = { member, text: data };
+  //           setMessages((messages) => [...messages, newMessage]);
+  //         });
+  //       }
+  //     });
+  //   }
+  // }, [drone]);
   useEffect(() => {
-    const newDrone = new window.Scaledrone("x4HWGT5WcslMpLUg", {
+    const drone = new window.Scaledrone("x4HWGT5WcslMpLUg", {
       data: member,
     });
-    setDrone(newDrone);
+    drone.on("open", (error) => {
+      if (error) {
+        return console.error(error);
+      }
+      member.id = drone.clientId;
+      setMember(member);
+    });
+    const room = drone.subscribe("observable-room");
+    room.on("message", (message) => {
+      setMessages((prevState) => [...prevState, message]);
+    });
+    setDrone(drone);
   }, []);
-
-  useEffect(() => {
-    if (drone) {
-      drone.on("open", (e) => {
-        if (e) {
-          console.error(e);
-        } else {
-          member.id = drone.clientId;
-          setMember(member);
-          const newRoom = drone.subscribe("observable-room");
-          setRoom(newRoom);
-
-          newRoom.on("data", (data, member) => {
-            const newMessage = { member, text: data };
-            setMessages((messages) => [...messages, newMessage]);
-          });
-        }
-      });
-    }
-  }, [drone]);
 
   const onSendMessage = (message) => {
     drone.publish({

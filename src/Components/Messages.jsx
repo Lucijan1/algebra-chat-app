@@ -1,7 +1,6 @@
-import { nanoid } from "nanoid";
 function Messages({ messages, currentMember }) {
   const renderMessage = (message) => {
-    const { member, text } = message;
+    const { member, data } = message;
     console.log("message:", message);
     console.log("member:", member);
     const localUserMessage = member && member.id === currentMember.id;
@@ -9,18 +8,17 @@ function Messages({ messages, currentMember }) {
       ? "Messages-message currentMember"
       : "messages-message";
     return (
-      <li key={nanoid()} className={className}>
-        <span
-          className="avatar"
+      <li key={member.id} className={className}>
+        <div
+          className="MessageContent"
           style={{ backgroundColor: member.clientData.color }}
-        />
-        <div className="MessageContent">
-          <div className="username">{member.clientData.name}</div>
+        >
+          <div className="username">{member.clientData.username}</div>
           <div
             className="text"
             style={{ backgroundColor: member.clientData.color }}
           >
-            {text}
+            {data}
           </div>
         </div>
       </li>

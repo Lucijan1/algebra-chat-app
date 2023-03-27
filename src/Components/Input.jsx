@@ -4,14 +4,12 @@ function Input({ onSendMessage }) {
   const [inputText, setInputText] = useState("");
 
   const handleChange = (e) => {
-    setInputText({
-      text: e.target.value,
-    });
+    setInputText(e.target.value);
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    setInputText({ text: "" });
     onSendMessage(inputText);
+    setInputText("");
   };
   return (
     <div className="Input">
