@@ -167,7 +167,6 @@ function App() {
         if (e) {
           console.error(e);
         } else {
-          // setMember({ ...member, id: drone.clientId });
           member.id = drone.clientId;
           setMember(member);
           const newRoom = drone.subscribe("learning");

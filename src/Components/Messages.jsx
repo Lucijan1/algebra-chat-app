@@ -10,16 +10,10 @@ function Messages({ messages, currentMember }) {
       : "messages-message";
     return (
       <li key={nanoid()} className={className}>
-        <span
-          className="avatar"
-          style={{ backgroundColor: member.clientData.color }}
-        />
+        <span className="avatar" style={{ backgroundColor: member.color }} />
         <div className="MessageContent">
-          <div className="username">{member.clientData.username}</div>
-          <div
-            className="text"
-            style={{ backgroundColor: member.clientData.color }}
-          >
+          <div className="username">{member.username}</div>
+          <div className="text" style={{ backgroundColor: member.color }}>
             {text}
           </div>
         </div>
