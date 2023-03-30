@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "./Input.css";
 
 function Input({ onSendMessage }) {
   const [inputText, setInputText] = useState("");
@@ -16,6 +17,7 @@ function Input({ onSendMessage }) {
       <form onSubmit={handleSubmit}>
         <input
           onChange={handleChange}
+          value={inputText}
           type="text"
           placeholder="Enter your message"
           autoFocus={true}
@@ -26,4 +28,4 @@ function Input({ onSendMessage }) {
   );
 }
 
-export default Input;
+export { Input };

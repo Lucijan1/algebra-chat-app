@@ -1,25 +1,30 @@
+import "./Messages.css";
 function Messages({ messages, currentMember }) {
   const renderMessage = (message) => {
-    const { member, data } = message;
-    console.log("message:", message);
-    console.log("member:", member);
+    //TODO: Format timestamp and render it properly
+    const { member, data, timestamp } = message;
     const localUserMessage = member && member.id === currentMember.id;
     const className = localUserMessage
       ? "Messages-message currentMember"
-      : "messages-message";
+      : "Messages-message";
+    const date = new Date(timestamp * 1000);
+    const hours = date.getHours();
+    const minutes = date.getMinutes();
     return (
-      <li key={member.id} className={className}>
+      <li key={timestamp} className={className}>
         <div
           className="MessageContent"
-          style={{ backgroundColor: member.clientData.color }}
+          style={{ backgroundColor: member.clientData.color + "40" }}
         >
-          <div className="username">{member.clientData.username}</div>
           <div
-            className="text"
-            style={{ backgroundColor: member.clientData.color }}
+            className="username"
+            style={{ backgroundColor: member.clientData.color + "40" }}
           >
-            {data}
+            {member.clientData.username}
           </div>
+          <div className="text">{data}</div>
+
+          <div className="timestamp">{`${hours}:${minutes}`}</div>
         </div>
       </li>
     );
@@ -29,4 +34,4 @@ function Messages({ messages, currentMember }) {
   );
 }
 
-export default Messages;
+export { Messages };

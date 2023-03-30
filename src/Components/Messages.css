@@ -1,0 +1,68 @@
+.Messages-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 20px 0;
+  max-width: 900px;
+  width: 100%;
+  margin: 0 auto;
+  list-style: none;
+  flex-grow: 1;
+  overflow: auto;
+  /* From https://css.glass */
+  background: rgba(255, 255, 255, 0.26);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5.4px);
+  -webkit-backdrop-filter: blur(5.4px);
+  border: 1px solid rgba(255, 255, 255, 0.37);
+}
+
+.Messages-message {
+  min-width: 300px;
+  max-width: 600px;
+  border-radius: 16px;
+}
+
+.Messages-message.currentMember {
+  text-align: end;
+  align-self: flex-end;
+}
+
+.MessageContent {
+  margin: 8px;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 5px 5px 8px rgba(0, 0, 0, 0.5);
+}
+
+.currentMember > .MessageContent {
+  align-items: flex-end;
+}
+
+.MessageContent > .username {
+  display: block;
+  font-size: 20px;
+  padding: 4px 15px;
+}
+
+.MessageContent > .text {
+  width: 100%;
+  padding-right: 10px;
+  text-align: start;
+  padding: 10px;
+  margin: 0;
+  display: inline-block;
+  overflow-wrap: break-word;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.timestamp {
+  color: rgba(240, 248, 255, 60%);
+
+  text-shadow: 0px 0px 5px #000000c0;
+  font-size: 90%;
+  text-align: end;
+  padding-right: 15px;
+  padding-bottom: 5px;
+}
