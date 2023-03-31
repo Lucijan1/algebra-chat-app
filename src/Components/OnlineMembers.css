@@ -1,0 +1,28 @@
+.OnlineMembers {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding: 20px 0;
+  max-width: 900px;
+  width: 100%;
+  margin: 0 auto 10px;
+
+  list-style: none;
+  overflow: auto;
+  /* From https://css.glass */
+  background: rgba(255, 255, 255, 0.26);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5.4px);
+  -webkit-backdrop-filter: blur(5.4px);
+  border: 1px solid rgba(255, 255, 255, 0.37);
+}
+.OnlineMember {
+  padding-left: 5px;
+  margin-left: 5px;
+}
+
+.OnlineMember._current {
+  border-bottom: 1px solid;
+  border-bottom-left-radius: 5px;
+}
