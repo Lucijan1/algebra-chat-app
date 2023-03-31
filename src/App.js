@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import "./App.css";
-import { Input, Messages } from "./Components";
+import { Input, Messages, OnlineMembers } from "./Components";
 import { randomColor, randomName } from "./helpers/generatorFunctions";
 
 function App() {
@@ -36,19 +36,25 @@ function App() {
     });
 
     room.on("member_join", (member) => {
-      const joinedMember = onlineMembers.push(member);
-      setOnlineMembers(joinedMember);
+      // const joinedMember = [...onlineMembers, member];
+      // setOnlineMembers(joinedMember);
+      setOnlineMembers([...onlineMembers, member]);
       console.log("Joined: ", member);
       console.table("State: ", onlineMembers);
     });
 
     room.on("member_leave", (memberLeft) => {
-      const currentMembers = onlineMembers;
-      const index = currentMembers.findIndex(
-        (member) => member.id === memberLeft.id
+      // const currentMembers = onlineMembers;
+      // const index = currentMembers.findIndex(
+      //   (member) => member.id === memberLeft.id
+      // );
+
+      // currentMembers.splice(index, 1);
+      // setOnlineMembers(currentMembers);
+      setOnlineMembers(
+        onlineMembers.filter((member) => member.id !== memberLeft.id)
       );
-      currentMembers.splice(index, 1);
-      setOnlineMembers(currentMembers);
+
       console.log("left: ", memberLeft);
       console.table("state: ", onlineMembers);
     });
@@ -66,6 +72,7 @@ function App() {
   return (
     <div className="App">
       <h1>Algebra Chat App</h1>
+      <OnlineMembers onlineMembers={onlineMembers} />
       <Messages messages={messages} currentMember={member} />
       <Input onSendMessage={onSendMessage} />
     </div>
