@@ -36,27 +36,15 @@ function App() {
     });
 
     room.on("member_join", (member) => {
-      // const joinedMember = [...onlineMembers, member];
-      // setOnlineMembers(joinedMember);
-      setOnlineMembers([...onlineMembers, member]);
+      setOnlineMembers((prevOnlineMembers) => [...prevOnlineMembers, member]);
       console.log("Joined: ", member);
       console.table("State: ", onlineMembers);
     });
 
     room.on("member_leave", (memberLeft) => {
-      // const currentMembers = onlineMembers;
-      // const index = currentMembers.findIndex(
-      //   (member) => member.id === memberLeft.id
-      // );
-
-      // currentMembers.splice(index, 1);
-      // setOnlineMembers(currentMembers);
-      setOnlineMembers(
-        onlineMembers.filter((member) => member.id !== memberLeft.id)
+      setOnlineMembers((prevMembers) =>
+        prevMembers.filter((member) => member.id !== memberLeft.id)
       );
-
-      console.log("left: ", memberLeft);
-      console.table("state: ", onlineMembers);
     });
 
     setDrone(drone);
