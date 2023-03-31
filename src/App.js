@@ -11,6 +11,7 @@ function App() {
   });
   const [drone, setDrone] = useState(null);
   const [room, setRoom] = useState(null);
+  const [onlineMembers, setOnlineMembers] = useState([]);
 
   useEffect(() => {
     const drone = new window.Scaledrone("x4HWGT5WcslMpLUg", {
@@ -27,6 +28,31 @@ function App() {
     room.on("message", (message) => {
       setMessages((prevState) => [...prevState, message]);
     });
+
+    room.on("members", (currentMembers) => {
+      setOnlineMembers([...currentMembers]);
+      console.log("Currently online members:", currentMembers);
+      console.table("state: ", onlineMembers);
+    });
+
+    room.on("member_join", (member) => {
+      const joinedMember = onlineMembers.push(member);
+      setOnlineMembers(joinedMember);
+      console.log("Joined: ", member);
+      console.table("State: ", onlineMembers);
+    });
+
+    room.on("member_leave", (memberLeft) => {
+      const currentMembers = onlineMembers;
+      const index = currentMembers.findIndex(
+        (member) => member.id === memberLeft.id
+      );
+      currentMembers.splice(index, 1);
+      setOnlineMembers(currentMembers);
+      console.log("left: ", memberLeft);
+      console.table("state: ", onlineMembers);
+    });
+
     setDrone(drone);
   }, []);
 
