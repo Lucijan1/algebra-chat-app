@@ -31,14 +31,10 @@ function App() {
 
     room.on("members", (currentMembers) => {
       setOnlineMembers([...currentMembers]);
-      console.log("Currently online members:", currentMembers);
-      console.table("state: ", onlineMembers);
     });
 
     room.on("member_join", (member) => {
       setOnlineMembers((prevOnlineMembers) => [...prevOnlineMembers, member]);
-      console.log("Joined: ", member);
-      console.table("State: ", onlineMembers);
     });
 
     room.on("member_leave", (memberLeft) => {
@@ -60,7 +56,7 @@ function App() {
   return (
     <div className="App">
       <h1>Algebra Chat App</h1>
-      <OnlineMembers onlineMembers={onlineMembers} />
+      <OnlineMembers onlineMembers={onlineMembers} currentMember={member} />
       <Messages messages={messages} currentMember={member} />
       <Input onSendMessage={onSendMessage} />
     </div>
